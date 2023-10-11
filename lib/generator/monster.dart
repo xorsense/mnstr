@@ -1,8 +1,12 @@
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:crypto/crypto.dart';
+import 'package:flutter/material.dart';
+
 class Monster {
   const Monster({
+    required this.color,
     required this.head,
     required this.horns,
     required this.arms,
@@ -11,24 +15,26 @@ class Monster {
   });
 
   static Monster fromBytes(Uint8List bytes) {
-    final gen = Random();
-    const min = 3;
-    final max = bytes.length;
-    final int headSeed = gen.nextInt(max - min);
-    final int hornsSeed = gen.nextInt(max - min);
-    final int armsSeed = gen.nextInt(max - min);
-    final int legsSeed = gen.nextInt(max - min);
-    final int tailSeed = gen.nextInt(max - min);
+    final hash = sha1.convert(bytes);
+    final parts = hash.bytes;
+    final color = Color.fromRGBO(parts[0], parts[1], parts[2], 100);
+    final head = parts.sublist(0,1).reduce((value, element) => value + element);
+    final horns = parts.sublist(2,6).reduce((value, element) => value + element);
+    final arms = parts.sublist(7,8).reduce((value, element) => value + element);
+    final legs = parts.sublist(9,10).reduce((value, element) => value + element);
+    final tail = parts.sublist(11,15).reduce((value, element) => value + element);
 
     return Monster(
-      head: bytes[headSeed] % 2,
-      horns: bytes[hornsSeed] % 4,
-      arms: bytes[armsSeed] % 2,
-      legs: bytes[legsSeed] % 2,
-      tail: bytes[tailSeed] % 4,
+      color: color,
+      head: head % 2,
+      horns: horns % 4,
+      arms: arms % 2,
+      legs: legs % 2,
+      tail: tail % 4,
     );
   }
 
+  final Color color;
   final int head;
   final int horns;
   final int arms;

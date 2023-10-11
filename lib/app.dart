@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import './generator/info.dart';
 import './generator/scanner.dart';
 import './widgets/result.dart';
 
 class App extends StatelessWidget {
+  const App({super.key});
+
   @override
   Widget build(context) {
     return MaterialApp(
@@ -19,7 +20,7 @@ class App extends StatelessWidget {
 }
 
 class _HomePage extends StatelessWidget {
-  const _HomePage({super.key});
+  const _HomePage();
 
   @override
   Widget build(context) {

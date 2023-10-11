@@ -1,4 +1,4 @@
-package at.mnstr.mnstr
+package at.mnstr
 
 import io.flutter.embedding.android.FlutterActivity
 

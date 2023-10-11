@@ -9,8 +9,9 @@ class ResultWidget extends StatelessWidget {
 
   @override
   Widget build(context) {
+    final name = info.firstName.isNotEmpty ? info.firstName : 'User';
     return Scaffold(
-      appBar: AppBar(title: Text('${info.firstName}`s mnstr'),),
+      appBar: AppBar(title: Text('$name`s mnstr'),),
       body: MonsterWidget(monster: info.mnstr(),),
     );
   }
