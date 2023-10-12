@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -9,8 +8,20 @@ class Scanner extends StatelessWidget {
 
   @override
   Widget build(context) {
+    final controller = MobileScannerController(torchEnabled: true);
     return Scaffold(
+      appBar: AppBar(title: const Text('Scanning'), actions: [
+        IconButton(onPressed: (){
+          controller.toggleTorch();
+        }, icon: const Icon(Icons.fireplace_rounded)),
+        IconButton(
+            onPressed: () {
+              controller.switchCamera();
+            },
+            icon: const Icon(Icons.flip_camera_ios_rounded))
+      ]),
       body: MobileScanner(
+        controller: controller,
         onDetect: (capture) {
           var info = Info(capture);
           Navigator.of(context).pop(info);
