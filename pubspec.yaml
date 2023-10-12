@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   mobile_scanner: ^3.4.1
   crypto: ^3.0.3
+  screenshot: ^2.1.0
 
 dev_dependencies:
   flutter_test:
