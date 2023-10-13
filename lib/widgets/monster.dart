@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+
+import 'monster_parts.dart';
 import '../generator/monster.dart';
 
 class MonsterWidget extends StatelessWidget {
@@ -16,21 +18,22 @@ class MonsterWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
-              child: Column(
-                children: [
-                  Text('head: ${monster.head}'),
-                  Text('horns: ${monster.horns}'),
-                  Text('arms: ${monster.arms}'),
-                  Text('legs: ${monster.legs}'),
-                  Text('tail: ${monster.tail}'),
-                ],
-              ),
+              child:
+                  Column(children: MonsterParts(monster: monster).monsterParts
+                      // [
+                      // Text('head: ${monster.head}'),
+                      // Text('horns: ${monster.horns}'),
+                      // Text('arms: ${monster.arms}'),
+                      // Text('legs: ${monster.legs}'),
+                      // Text('tail: ${monster.tail}'),
+                      // ],
+                      ),
             ),
           ),
           SizedBox(
-                  child: Container(
-                    color: monster.color,
-                  )),
+              child: Container(
+            color: monster.color,
+          )),
         ]),
       ),
     );
