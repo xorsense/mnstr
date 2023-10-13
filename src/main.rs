@@ -10,6 +10,11 @@ use std::fs::{create_dir, File, read_dir};
 use std::io::Write;
 use std::path::Path;
 
+#[get("/")]
+fn hello() -> String {
+    String::from("Hello, fellow mnstr!")
+}
+
 #[get("/<shortcode>")]
 fn retrieve(shortcode: &str) -> RawHtml<String> {
     RawHtml(format!(
@@ -49,7 +54,7 @@ async fn main() -> shuttle_rocket::ShuttleRocket {
         }
     }
     let rocket = rocket::build()
-        .mount("/", routes![retrieve, store])
+        .mount("/", routes![hello, retrieve, store])
         .mount("/assets/", FileServer::from(path_base));
 
     Ok(rocket.into())
