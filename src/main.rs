@@ -6,7 +6,7 @@ use rocket::fs::FileServer;
 use rocket::response::content::RawHtml;
 use rocket::{get, routes};
 use std::env;
-use std::fs::File;
+use std::fs::{create_dir, File, read_dir};
 use std::io::Write;
 use std::path::Path;
 
@@ -33,7 +33,6 @@ async fn store(bytes: &[u8]) -> String {
     let path_base = env!("MNSTR_STRG");
     let shortcode = nanoid!(6);
     let path = Path::new(path_base)
-        .join("assets")
         .join(format!("{}.png", shortcode));
     let mut f = File::create(path).unwrap();
     f.write_all(bytes).unwrap();
@@ -43,6 +42,12 @@ async fn store(bytes: &[u8]) -> String {
 #[shuttle_runtime::main]
 async fn main() -> shuttle_rocket::ShuttleRocket {
     let path_base = env!("MNSTR_STRG");
+    match read_dir(path_base) {
+        Ok(_dir) => {},
+        Err(_err) => {
+            create_dir(path_base).unwrap()
+        }
+    }
     let rocket = rocket::build()
         .mount("/", routes![retrieve, store])
         .mount("/assets/", FileServer::from(path_base));
