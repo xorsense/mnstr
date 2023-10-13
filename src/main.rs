@@ -44,8 +44,8 @@ async fn store(bytes: &[u8]) -> String {
     shortcode
 }
 
-#[shuttle_runtime::main]
-async fn main() -> shuttle_rocket::ShuttleRocket {
+#[rocket::launch]
+fn rocket() -> _ {
     let path_base = env!("MNSTR_STRG");
     match read_dir(path_base) {
         Ok(_dir) => {},
@@ -53,9 +53,7 @@ async fn main() -> shuttle_rocket::ShuttleRocket {
             create_dir(path_base).unwrap()
         }
     }
-    let rocket = rocket::build()
+    rocket::build()
         .mount("/", routes![hello, retrieve, store])
-        .mount("/assets/", FileServer::from(path_base));
-
-    Ok(rocket.into())
+        .mount("/assets/", FileServer::from(path_base))
 }
