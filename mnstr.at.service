@@ -1,0 +1,16 @@
+[Unit]
+Description=mnstr api
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/app/
+Environment="ROCKET_ENV=prod"
+Environment="ROCKET_ADDRESS=0.0.0.0"
+Environment="ROCKET_PORT=8000"
+Environment="ROCKET_LOG=critical"
+Environment="MNSTR_STRG=/assets""
+ExecStart=/app/mnstr2023
+
+[Install]
+WantedBy=multi-user.target
