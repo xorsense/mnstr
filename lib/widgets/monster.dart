@@ -32,7 +32,7 @@ class MonsterWidget extends StatelessWidget {
                       child: monsterParts[MonsterPart.head]!),
                   if (monsterParts[MonsterPart.horns] != null)
                     Positioned(
-                        bottom: middle.height + 370,
+                        bottom: middle.height + 380,
                         left: middle.width,
                         child: monsterParts[MonsterPart.horns]!),
                   if (monsterParts[MonsterPart.tail] != null)
