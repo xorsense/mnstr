@@ -11,7 +11,6 @@ class ResultWidget extends StatefulWidget {
   final Info info;
   @override
   State<StatefulWidget> createState() => _ResultWidgetState(info: info);
-
 }
 
 class _ResultWidgetState extends State<ResultWidget> {
@@ -43,13 +42,22 @@ class _ResultWidgetState extends State<ResultWidget> {
             ),
           ),
           if (image != null) Expanded(child: Image.memory(image)),
-          if (shortcode.isNotEmpty) Text('Shortcode: $shortcode', textScaleFactor: 2,),
+          if (shortcode.isNotEmpty)
+            Text(
+              'Shortcode: $shortcode',
+              textScaleFactor: 2,
+            ),
           ElevatedButton.icon(
             onPressed: () async {
               final bytes = await controller.capture();
-              debugPrint('bytes: ${bytes!.buffer.asUint8List()}');
+              debugPrint('bytes: ${bytes!.length * 8}');
 
-              final res = await post(Uri.parse('https://mnstr.at'), body: bytes);
+              // final res = await post(Uri.parse('https://mnstr.at'), body: bytes);
+              final res = await post(
+                Uri.parse('http://localhost:8000/'),
+                body: bytes,
+                headers: {'Content-Type': 'image/png'},
+              );
               final code = res.body;
               debugPrint('shortcode: $shortcode');
               setState(() {

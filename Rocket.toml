@@ -1,0 +1,7 @@
+[global.limits]
+json = 5242880
+bytes = 5242880
+data-form = 5242880
+form = 5242880
+file = 5242880
+string = 5242880

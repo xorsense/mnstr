@@ -5,12 +5,13 @@ use nanoid::nanoid;
 use rocket::fs::FileServer;
 use rocket::response::content::RawHtml;
 use rocket::{get, Response, Request, routes};
-use std::env;
+use std::{env, io};
 use std::fs::{create_dir, File, read_dir};
 use std::io::Write;
 use std::path::Path;
 use rocket::fairing::{Fairing, Info, Kind};
 use rocket::http::Header;
+use rocket::serde::Deserialize;
 
 struct CORS;
 
@@ -29,6 +30,13 @@ impl Fairing for CORS {
         response.set_header(Header::new("Access-Control-Allow-Headers", "*"));
         response.set_header(Header::new("Access-Control-Allow-Credentials", "true"));
     }
+}
+
+#[derive(Deserialize)]
+#[serde(crate = "rocket::serde")]
+struct Upload {
+    name: String,
+    bytes: Vec<u8>,
 }
 
 #[get("/")]
@@ -54,15 +62,14 @@ fn retrieve(shortcode: &str) -> RawHtml<String> {
     ))
 }
 
-#[post("/", data = "<bytes>")]
-async fn store(bytes: &[u8]) -> String {
-    println!("bytes: {:?}", bytes);
+#[post("/", data = "<upload>")]
+fn store(upload: Vec<u8>) -> String {
     let path_base = env!("MNSTR_STRG");
     let shortcode = nanoid!(6);
     let path = Path::new(path_base)
         .join(format!("{}.png", shortcode));
     let mut f = File::create(path).unwrap();
-    f.write_all(bytes).unwrap();
+    f.write_all(upload.as_slice()).unwrap();
     shortcode
 }
 
