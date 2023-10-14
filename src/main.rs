@@ -4,11 +4,32 @@ extern crate rocket;
 use nanoid::nanoid;
 use rocket::fs::FileServer;
 use rocket::response::content::RawHtml;
-use rocket::{get, routes};
+use rocket::{get, Response, Request, routes};
 use std::env;
 use std::fs::{create_dir, File, read_dir};
 use std::io::Write;
 use std::path::Path;
+use rocket::fairing::{Fairing, Info, Kind};
+use rocket::http::Header;
+
+struct CORS;
+
+#[rocket::async_trait]
+impl Fairing for CORS {
+    fn info(&self) -> Info {
+        Info {
+            name: "Add CORS headers to Response",
+            kind: Kind::Response,
+        }
+    }
+
+    async fn on_response<'r>(&self, _request: &'r Request<'_>, response: &mut Response<'r>) {
+        response.set_header(Header::new("Access-Control-Allow-Origin", "*"));
+        response.set_header(Header::new("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, PATCH, OPTIONS"));
+        response.set_header(Header::new("Access-Control-Allow-Headers", "*"));
+        response.set_header(Header::new("Access-Control-Allow-Credentials", "true"));
+    }
+}
 
 #[get("/")]
 fn hello() -> String {
@@ -35,6 +56,7 @@ fn retrieve(shortcode: &str) -> RawHtml<String> {
 
 #[post("/", data = "<bytes>")]
 async fn store(bytes: &[u8]) -> String {
+    println!("bytes: {:?}", bytes);
     let path_base = env!("MNSTR_STRG");
     let shortcode = nanoid!(6);
     let path = Path::new(path_base)
@@ -54,6 +76,7 @@ fn rocket() -> _ {
         }
     }
     rocket::build()
+        .attach(CORS)
         .mount("/", routes![hello, retrieve, store])
         .mount("/assets/", FileServer::from(path_base))
 }

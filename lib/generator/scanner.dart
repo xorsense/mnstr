@@ -8,12 +8,15 @@ class Scanner extends StatelessWidget {
 
   @override
   Widget build(context) {
-    final controller = MobileScannerController(torchEnabled: true);
+    final controller = MobileScannerController(torchEnabled: false);
     return Scaffold(
-      appBar: AppBar(title: const Text('Scanning'), centerTitle: true, actions: [
-        IconButton(onPressed: (){
-          controller.toggleTorch();
-        }, icon: const Icon(Icons.fireplace_rounded)),
+      appBar:
+          AppBar(title: const Text('Scanning'), centerTitle: true, actions: [
+        IconButton(
+            onPressed: () {
+              controller.toggleTorch();
+            },
+            icon: const Icon(Icons.fireplace_rounded)),
         IconButton(
             onPressed: () {
               controller.switchCamera();
