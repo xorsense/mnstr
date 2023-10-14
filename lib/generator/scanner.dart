@@ -8,7 +8,7 @@ class Scanner extends StatelessWidget {
 
   @override
   Widget build(context) {
-    final controller = MobileScannerController(torchEnabled: false);
+    final controller = MobileScannerController();
     return Scaffold(
       appBar:
           AppBar(title: const Text('Scanning'), centerTitle: true, actions: [
