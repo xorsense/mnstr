@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../generator/monster.dart';
 
+const scale = 1.7;
+
 class MonsterParts {
   MonsterParts({required this.monster});
 
@@ -9,50 +11,56 @@ class MonsterParts {
 
   Image get head {
     if (monster.head == 0) {
-      return Image.asset('assets/mnstr_parts/head_1.png');
+      return Image.asset(
+        'assets/mnstr_parts/head_1.png',
+        scale: scale,
+      );
     }
-    return Image.asset('assets/mnstr_parts/head_2.png');
+    return Image.asset('assets/mnstr_parts/head_2.png', scale: scale);
   }
 
   Image? get horns {
     switch (monster.horns) {
       case 0:
-        return Image.asset('assets/mnstr_parts/horns_short.png');
+        return Image.asset('assets/mnstr_parts/horns_short.png', scale: scale);
       case 1:
-        return Image.asset('assets/mnstr_parts/horns_spiraled.png');
+        return Image.asset('assets/mnstr_parts/horns_spiraled.png',
+            scale: scale);
       case 2:
-        return Image.asset('assets/mnstr_parts/horns_striped.png');
+        return Image.asset('assets/mnstr_parts/horns_striped.png',
+            scale: scale);
     }
     return null;
   }
 
   Image get arms {
     if (monster.arms == 0) {
-      return Image.asset('assets/mnstr_parts/arms_two.png');
+      return Image.asset('assets/mnstr_parts/arms_two.png', scale: scale);
     }
-    return Image.asset('assets/mnstr_parts/arms_four.png');
+    return Image.asset('assets/mnstr_parts/arms_four.png', scale: scale);
   }
 
   Image get legs {
     if (monster.legs == 0) {
-      return Image.asset('assets/mnstr_parts/legs_long.png');
+      return Image.asset('assets/mnstr_parts/legs_long.png', scale: scale);
     }
-    return Image.asset('assets/mnstr_parts/legs_short.png');
+    return Image.asset('assets/mnstr_parts/legs_short.png', scale: scale);
   }
 
   Image? get tail {
     switch (monster.horns) {
       case 0:
-        return Image.asset('assets/mnstr_parts/tail_long.png');
+        return Image.asset('assets/mnstr_parts/tail_long.png', scale: scale);
       case 1:
-        return Image.asset('assets/mnstr_parts/tail_twins.png');
+        return Image.asset('assets/mnstr_parts/tail_twins.png', scale: scale);
       case 2:
-        return Image.asset('assets/mnstr_parts/tail_stripes.png');
+        return Image.asset('assets/mnstr_parts/tail_stripes.png', scale: scale);
     }
     return null;
   }
 
-  Image get body => Image.asset('assets/mnstr_parts/body_base.png');
+  Image get body =>
+      Image.asset('assets/mnstr_parts/body_base.png', scale: scale);
 
   Map<MonsterPart, Image?> get monsterParts {
     return {
