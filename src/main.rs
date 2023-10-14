@@ -5,13 +5,12 @@ use nanoid::nanoid;
 use rocket::fs::FileServer;
 use rocket::response::content::RawHtml;
 use rocket::{get, Response, Request, routes};
-use std::{env, io};
+use std::env;
 use std::fs::{create_dir, File, read_dir};
 use std::io::Write;
 use std::path::Path;
 use rocket::fairing::{Fairing, Info, Kind};
 use rocket::http::Header;
-use rocket::serde::Deserialize;
 
 struct CORS;
 
@@ -30,13 +29,6 @@ impl Fairing for CORS {
         response.set_header(Header::new("Access-Control-Allow-Headers", "*"));
         response.set_header(Header::new("Access-Control-Allow-Credentials", "true"));
     }
-}
-
-#[derive(Deserialize)]
-#[serde(crate = "rocket::serde")]
-struct Upload {
-    name: String,
-    bytes: Vec<u8>,
 }
 
 #[get("/")]
