@@ -38,7 +38,7 @@ class MonsterWidget extends StatelessWidget {
                   if (monsterParts[MonsterPart.tail] != null)
                     Positioned(
                         bottom: middle.height - 198,
-                        left: middle.width - 10,
+                        left: middle.width,
                         child: monsterParts[MonsterPart.tail]!),
                   Positioned(
                       bottom: middle.height + 19,
