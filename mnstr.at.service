@@ -9,7 +9,7 @@ Environment="ROCKET_ENV=prod"
 Environment="ROCKET_ADDRESS=0.0.0.0"
 Environment="ROCKET_PORT=8000"
 Environment="ROCKET_LOG=critical"
-Environment="MNSTR_STRG=/assets""
+Environment="MNSTR_STRG=/tmp/mnstr""
 ExecStart=/app/mnstr2023
 
 [Install]
