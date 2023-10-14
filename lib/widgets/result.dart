@@ -48,12 +48,14 @@ class _ResultWidgetState extends State<ResultWidget> {
             onPressed: () async {
               final bytes = await controller.capture();
               debugPrint('bytes: ${bytes!.buffer.asUint8List()}');
+
+              final res = await post(Uri.parse('https://mnstr.at'), body: bytes);
+              final code = res.body;
+              debugPrint('shortcode: $shortcode');
               setState(() {
                 image = bytes;
+                shortcode = code;
               });
-              final res = await post(Uri.parse('https://mnstr.at'), body: bytes);
-              final shortcode = res.body;
-              debugPrint('shortcode: $shortcode');
             },
             label: const Text('Share'),
             icon: const Icon(Icons.ios_share),
