@@ -54,15 +54,23 @@ class MonsterParts {
 
   Image get body => Image.asset('assets/mnstr_parts/body_base.png');
 
-  List<Image> get monsterParts {
-    List<Image> parts = [];
-
-    parts.addAll([head, arms, legs, body]);
-
-    if (horns != null) parts.add(horns!);
-
-    if (tail != null) parts.add(tail!);
-
-    return parts;
+  Map<MonsterPart, Image?> get monsterParts {
+    return {
+      MonsterPart.horns: horns,
+      MonsterPart.head: head,
+      MonsterPart.body: body,
+      MonsterPart.arms: arms,
+      MonsterPart.legs: legs,
+      MonsterPart.tail: tail,
+    };
   }
+}
+
+enum MonsterPart {
+  horns,
+  head,
+  body,
+  arms,
+  legs,
+  tail;
 }

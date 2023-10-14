@@ -45,7 +45,7 @@ class _ResultWidgetState extends State<ResultWidget> {
 
               await Share.shareXFiles([
                 XFile.fromData(bytes, mimeType: 'image/png', name: 'mnstr.png')
-              ], text: 'Your mnst from ATO 2023');
+              ], text: 'Your mnstr from ATO 2023');
 
               // TODO: shortcode
               // final res = await post(Uri.parse('https://mnstr.at'), body: bytes);
