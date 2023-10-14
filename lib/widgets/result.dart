@@ -1,7 +1,6 @@
-// import 'package:dio/dio.dart';
-import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 
 import './monster.dart';
 import '../generator/info.dart';
@@ -18,8 +17,6 @@ class _ResultWidgetState extends State<ResultWidget> {
 
   final Info info;
   final controller = ScreenshotController();
-  var image;
-  var shortcode = '';
 
   @override
   Widget build(context) {
@@ -41,29 +38,23 @@ class _ResultWidgetState extends State<ResultWidget> {
               ),
             ),
           ),
-          if (image != null) Expanded(child: Image.memory(image)),
-          if (shortcode.isNotEmpty)
-            Text(
-              'Shortcode: $shortcode',
-              textScaleFactor: 2,
-            ),
           ElevatedButton.icon(
             onPressed: () async {
               final bytes = await controller.capture();
-              debugPrint('bytes: ${bytes!.length * 8}');
+              debugPrint('bytes: ${bytes!.toList()}');
 
+              await Share.shareXFiles([
+                XFile.fromData(bytes, mimeType: 'image/png', name: 'mnstr.png')
+              ], text: 'Your mnst from ATO 2023');
+
+              // TODO: shortcode
               // final res = await post(Uri.parse('https://mnstr.at'), body: bytes);
-              final res = await post(
-                Uri.parse('http://localhost:8000/'),
-                body: bytes,
-                headers: {'Content-Type': 'image/png'},
-              );
-              final code = res.body;
-              debugPrint('shortcode: $shortcode');
-              setState(() {
-                image = bytes;
-                shortcode = code;
-              });
+              // final code = res.body;
+              // debugPrint('shortcode: $shortcode');
+              // setState(() {
+              //   image = bytes;
+              //   shortcode = code;
+              // });
             },
             label: const Text('Share'),
             icon: const Icon(Icons.ios_share),
