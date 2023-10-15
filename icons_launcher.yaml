@@ -1,0 +1,7 @@
+icons_launcher:
+  image_path: "assets/loading_figure_001_bg2.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
