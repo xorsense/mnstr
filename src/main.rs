@@ -33,7 +33,7 @@ impl Fairing for CORS {
 
 #[get("/")]
 fn hello() -> String {
-    String::from("Hello, fellow mnstr!")
+    String::from("Hello, fellow mnstr! For support completeness, please email us: michael+support@xorsense.com")
 }
 
 #[get("/<shortcode>")]
