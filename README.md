@@ -22,8 +22,9 @@ To reach out for questions and support you can [email](mailto:support@xorsense.c
 
 ### Build
 
-1. Start by forking the code [^3]
-2. You can clone your code[^4] localy here:
+1. Start by forking the code [^3].
+
+2. You can clone your code[^4] locally here:
 
 ``` sh
 git clone https://github.com/xorsense/mnstr.git
